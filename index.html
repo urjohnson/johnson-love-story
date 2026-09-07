@@ -335,7 +335,7 @@
       </div>
 
       <div class="input-box">
-        <div class="tie-breaker-header">🚨 The Tie-Breaker</div>
+        <div class="tie-breaker-header">🚨 The Ultimate Tie-Breaker</div>
         <p style="font-size: 0.85rem; color: #666; margin-bottom: 12px; line-height: 1.4;">If there is a tie on the photo timeline, this will decide the winner. Exactly how many days have we been together?</p>
         
         <!-- inputmode="numeric" brings up the number pad on mobile -->
@@ -435,24 +435,21 @@
         order.push(el.getAttribute('data-id'));
       });
 
-      const submission = {
-        guestName: name,
-        tieBreakerDays: tieBreaker,
-        orderedSequence: order.join(", "),
-        submittedAt: new Date().toLocaleTimeString()
-      };
+      // Format data natively to bypass mobile browser security blocks
+      const formData = new URLSearchParams();
+      formData.append("guestName", name);
+      formData.append("tieBreakerDays", tieBreaker);
+      formData.append("orderedSequence", order.join(", "));
+      formData.append("submittedAt", new Date().toLocaleTimeString());
 
       // Send data to Google Sheets
       fetch('https://script.google.com/macros/s/AKfycbymr4LpN6MdMLCk8vdvcI1a-bAA6xlRT9fCheVcX5FnJJKfdJbhoEfyHeNL9cnlCRestg/exec', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-        body: JSON.stringify(submission),
+        body: formData,
         mode: 'no-cors'
       });
 
-      console.log("Submitted payload:", submission);
+      console.log("Submitted payload:", Object.fromEntries(formData));
 
       document.getElementById('game-view').style.display = 'none';
       document.getElementById('confirmation').style.display = 'block';
