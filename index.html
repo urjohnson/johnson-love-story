@@ -404,13 +404,16 @@
         orderedSequence: order.join(", "),
         submittedAt: new Date().toLocaleTimeString()
       };
-// Replace URL with your Google Apps Script Web App URL when ready
-      fetch('https://script.google.com/macros/s/AKfycbx3HkilC_GfsdE3vCrdVcCd2QZa_PRKiyz7GEnXfaq4BI3OngahD5uaUImCqPJthItk/exec', {
+
+      // Send data to Google Sheets
+      fetch('https://script.google.com/macros/s/AKfycbymr4LpN6MdMLCk8vdvcI1a-bAA6xlRT9fCheVcX5FnJJKfdJbhoEfyHeNL9cnlCRestg/exec', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
         body: JSON.stringify(submission),
         mode: 'no-cors'
       });
-    
 
       console.log("Submitted payload:", submission);
 
