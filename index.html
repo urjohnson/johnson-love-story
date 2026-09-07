@@ -61,7 +61,7 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    input[type="text"], input[type="number"] {
+    input[type="text"] {
       width: 100%;
       padding: 14px;
       border-radius: 8px;
@@ -70,9 +70,24 @@
       color: var(--text-main);
       font-size: 1rem;
       outline: none;
+      transition: all 0.2s ease;
     }
     input:focus { border-color: var(--olive); box-shadow: 0 0 0 2px rgba(91,110,65,0.2); }
     
+    /* Error styling for the tie-breaker */
+    .error-text {
+      color: #d9534f;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      font-weight: bold;
+      display: none;
+    }
+    .input-error {
+      border-color: #d9534f !important;
+      box-shadow: 0 0 0 2px rgba(217,83,79,0.2) !important;
+      background: #fdf2f2 !important;
+    }
+
     .instructions-card {
       background: var(--olive);
       color: white;
@@ -320,9 +335,12 @@
       </div>
 
       <div class="input-box">
-        <div class="tie-breaker-header">🚨 The Tie-Breaker</div>
+        <div class="tie-breaker-header">🚨 The Ultimate Tie-Breaker</div>
         <p style="font-size: 0.85rem; color: #666; margin-bottom: 12px; line-height: 1.4;">If there is a tie on the photo timeline, this will decide the winner. Exactly how many days have we been together?</p>
-        <input type="number" id="tie-breaker" placeholder="e.g. 1050" required>
+        
+        <!-- inputmode="numeric" brings up the number pad on mobile -->
+        <input type="text" inputmode="numeric" id="tie-breaker" placeholder="e.g. 1050" oninput="validateTieBreaker(this)" required>
+        <div id="tb-error" class="error-text">Numbers only, please! No letters or symbols.</div>
       </div>
 
       <button class="btn-submit" onclick="submitAnswers()">Submit My Guess</button>
@@ -379,6 +397,19 @@
       document.getElementById('image-modal').style.display = 'none';
     }
 
+    // Tie-Breaker Validation (Checks for non-numbers)
+    function validateTieBreaker(input) {
+      const errorText = document.getElementById('tb-error');
+      // Regex checks if the input contains anything that IS NOT a digit (0-9)
+      if (/[^0-9]/.test(input.value) && input.value !== "") {
+        input.classList.add('input-error');
+        errorText.style.display = 'block';
+      } else {
+        input.classList.remove('input-error');
+        errorText.style.display = 'none';
+      }
+    }
+
     function submitAnswers() {
       const name = document.getElementById('guest-name').value.trim();
       const tieBreaker = document.getElementById('tie-breaker').value.trim();
@@ -389,6 +420,12 @@
       }
       if (!tieBreaker) {
         alert("Please answer the tie-breaker question!");
+        return;
+      }
+      
+      // Final block if they try to submit with letters anyway
+      if (/[^0-9]/.test(tieBreaker)) {
+        alert("Please fix your tie-breaker! Numbers only.");
         return;
       }
 
