@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Johnson Love Story - Timeline Game</title>
+  <!-- SortableJS for smooth touch drag-and-drop -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
   <style>
     :root {
@@ -233,6 +234,7 @@
         Top = <strong>Oldest (1)</strong> • Bottom = <strong>Newest</strong>
       </div>
 
+      <!-- Photo Drag Container -->
       <div id="photo-list">
         
         <div class="photo-item" data-id="photo_1">
@@ -286,20 +288,27 @@
 
         <div class="photo-item" data-id="photo_8">
           <span class="item-rank">8</span>
-          <img src="IMG_6574.jpg" class="photo-thumb" alt="Memory" onclick="openModal(this.src)">
+          <img src="IMG_6356%202.jpg" class="photo-thumb" alt="Memory" onclick="openModal(this.src)">
           <div class="item-info"><span class="item-tag"></span></div>
           <span class="drag-handle">&#9776;</span>
         </div>
 
         <div class="photo-item" data-id="photo_9">
           <span class="item-rank">9</span>
-          <img src="IMG_7660.jpg" class="photo-thumb" alt="Memory" onclick="openModal(this.src)">
+          <img src="IMG_6574.jpg" class="photo-thumb" alt="Memory" onclick="openModal(this.src)">
           <div class="item-info"><span class="item-tag"></span></div>
           <span class="drag-handle">&#9776;</span>
         </div>
 
         <div class="photo-item" data-id="photo_10">
           <span class="item-rank">10</span>
+          <img src="IMG_7660.jpg" class="photo-thumb" alt="Memory" onclick="openModal(this.src)">
+          <div class="item-info"><span class="item-tag"></span></div>
+          <span class="drag-handle">&#9776;</span>
+        </div>
+
+        <div class="photo-item" data-id="photo_11">
+          <span class="item-rank">11</span>
           <img src="DE875BCD-6566-4C42-8380-EC9824E09383.png" class="photo-thumb" alt="Memory" onclick="openModal(this.src)">
           <div class="item-info"><span class="item-tag tag-label">Newest</span></div>
           <span class="drag-handle">&#9776;</span>
@@ -316,6 +325,7 @@
       <button class="btn-submit" onclick="submitAnswers()">Submit My Guess</button>
     </div>
 
+    <!-- Thank You Screen -->
     <div id="confirmation">
       <h2>Guess Locked In!</h2>
       <p style="color: var(--olive); line-height: 1.5; margin-top: 12px; font-size: 1.1rem;">
@@ -324,6 +334,7 @@
     </div>
   </div>
 
+  <!-- Full Screen Modal Overlay -->
   <div id="image-modal" onclick="closeModal()">
     <span class="close-modal">&times;</span>
     <img id="modal-img" src="">
