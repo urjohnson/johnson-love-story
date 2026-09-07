@@ -320,7 +320,7 @@
       </div>
 
       <div class="input-box">
-        <div class="tie-breaker-header">🚨 The Ultimate Tie-Breaker</div>
+        <div class="tie-breaker-header">🚨 The Tie-Breaker</div>
         <p style="font-size: 0.85rem; color: #666; margin-bottom: 12px; line-height: 1.4;">If there is a tie on the photo timeline, this will decide the winner. Exactly how many days have we been together?</p>
         <input type="number" id="tie-breaker" placeholder="e.g. 1050" required>
       </div>
@@ -404,14 +404,13 @@
         orderedSequence: order.join(", "),
         submittedAt: new Date().toLocaleTimeString()
       };
-
-      // Replace URL with your Google Apps Script Web App URL when ready
-      /*
-      fetch('YOUR_GOOGLE_SCRIPT_WEBAPP_URL', {
+// Replace URL with your Google Apps Script Web App URL when ready
+      fetch('https://script.google.com/macros/s/AKfycbx3HkilC_GfsdE3vCrdVcCd2QZa_PRKiyz7GEnXfaq4BI3OngahD5uaUImCqPJthItk/exec', {
         method: 'POST',
-        body: JSON.stringify(submission)
+        body: JSON.stringify(submission),
+        mode: 'no-cors'
       });
-      */
+    
 
       console.log("Submitted payload:", submission);
 
